@@ -17,12 +17,10 @@ Why Momonitor?
 
 * | **Manage your checks via a simple WebUI**
   | Edit, create, and delete system checks with a simple WebUI! No more needing to update foreign configuration files to manage your checks.
-* | **Set intervals just like cron**
-  | Configure the frequency with which your checks are run just like cron! (\*/5 \* \* \* \* == every 5 minutes!)
+* | **Designed for extensibility**
+  | Adding new types of health checks is easy as cake. Just create a new django model, and you're good!
 * | **Know what, when, and why**
   | Know when your checks run, whether they succeeded or failed, and why! Momonitor gives you an intuitive, human-readable interface for doing so.
-* | **Designed for extensibility**
-  | Adding new types of health checks is easy as cake. See the Sensu and Umpire checks for good examples.
 * | **Alert via** `Pagerduty <http://www.pagerduty.com/>`_ **or generic email**
   | We have implemented builtin support for PagerDuty. Alerts are sent out immediently upon a failed check.
 * | **Actively being worked on at** `MoPub <http://mopub.com>`_
@@ -35,11 +33,13 @@ Momonitor is a simple django app that manages and runs health checks on your sys
 
 As a developer, you define services and health checks. Services are collections of health checks that share a bunch of defaults (i.e. check frequency, alert type). Several types of health checks have been implemented to help you monitor every aspect of your system.
 
-When a check fails, momonitor will alert you! It will also highlight your failed checks in red on the WebUI.
 
-See the `video tutorial <http://www.youtube.com/watch?v=uL5ddl5wpac>`_ (below) for a brief overview of the momonitor WebUI.
 
-Also, see the video about `adding a check <http://youtu.be/YVNQo98Nrio>`_.
+See the `video tutorial <http://www.youtube.com/watch?v=uL5ddl5wpac>`_ for a brief overview of the momonitor WebUI.
+
+We also put together a quick `presentation <http://mopub.github.com/momonitor/slideshow>`_ to highlight the goals of momonitor.
+
+Want to start creating checks right away? See the `demo video <http://youtu.be/YVNQo98Nrio>`_ about creating checks
 
 Getting Started
 ===============
@@ -111,6 +111,9 @@ Update Section 2 of the settings.py file with your database configurations
 
       # Set this to the Domain of the site that will be hosting momonitor   
       DOMAIN = "http://localhost"
+      
+      #By default, all checks are enabled. Select only a few checks by defining this variable
+      CHECK_MODELS=[]
 
 Start the server
 ::
@@ -136,17 +139,17 @@ What it is
 
 Momonitor is a Django app that runs on a PostgreSQL backend and Redis Cache. Check and service configurations are kept in Postgres while application state is kept in Redis. Momonitor is configured to use Google OAuth for authentication via django-social-auth. Momonitor relies on cron to run checks.
 
-Momonitor is a simple tool that polls URL endpoints and runs checks on the respective responses. It integrates with several types of responses from multiple services, thus it leaves the check complexity to the process listening on the endpoint.
-
-Essentially two types of objects exist in Momonitor: services and checks. Services and checks each have a status (good, bad, or unknown).  Services are a collection checks that test a specific system. Multiple types of checks exist; each tests  different aspects of the target system.
+Essentially two types of objects exist in Momonitor: services and service checks. Service checks that test like parts of your infrastructure are grouped into single service. Services provide defaults and alerts for the checks they contain. 
 
 Types of Checks
 ---------------
 
+One of the great advantages of Momonitor is the ability to easily define new types of checks. At MoPub, we have already defined several types of checks:
+
 * | **Simple Check** 
-  | Check a single URL endpoint and report whether the response was a 200 or 500
+  | checks a single HTTP endpoint and reports whether the HTTP response returned with a 200 or non-200 status code.
 * | **Umpire Check** 
-  | Umpire Checks allows to put minimum and maximum threholds on Graphite data. Umpire checks require an `Umpire <https://github.com/heroku/umpire>`_ Server and `Graphite <http://graphite.wikidot.com/>`_ Server. To integrate with Momonitor...
+  | implements the Umpire API to report on graphite data. Umpire checks require an `Umpire <https://github.com/heroku/umpire>`_ Server and `Graphite <http://graphite.wikidot.com/>`_ Server. To integrate with Momonitor you need to add the follwing settings constants with the URL endpoints of your servers...
 
 ::
 
@@ -154,12 +157,14 @@ Types of Checks
    GRAPHITE_ENDPOINT = "http://example.org"
 
 * | **Compare Check** 
-  | Compare Checks check a single URL endpoint that returns serialized data (i.e. json). You can compare a single data field via dot-notation and compare arithmatically compare it to a given value
+  | hits an HTTP endpoint that returns serialized data in the response body (i.e. json). Specify a field in the serialized data using dot notation, and compare the value of that field to a value that your specify.
 * | **Code Check** 
-  | Checks run arbitrary code on the momonitor server. This allows for the ultimate custom check, but be careful! The uploaded code should be a .py file that has a run function which returns a tuple (value,succeeded).
+  | runs code (that you upload) on the momonitor server. Currently only Python is supported.
 * | **Sensu Check** 
-  | Integrates with a Sensu Server, a service which runs checks on **many** machines. Momonitor monitoris sensu by checking the aggregate result.
+  | implements the Sensu Aggregate API and alerts when any servers fail a sensu check.
   | Sensu checks require a `Sensu <https://github.com/sensu/sensu>`_ Server. To integrate with Momonitor...
+* | **Graphite Check**
+  | Emulates the function of Umpire. Apply a minimum and maximum threshold on a graphite metric, and get alerted when the value goes beyond those thresholds.
 
 ::
 
@@ -218,7 +223,8 @@ For testing, we are using Django's builtin unittest.TestCase and a custom-made F
 And then, in a separate tab...
 ::
 
-    >>> python manage test
+    >>> python manage test main
+    >>> python manage test mobile
 
 Feedback
 ========
