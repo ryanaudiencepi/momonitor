@@ -312,12 +312,12 @@ python manage.py migrate</pre>
 <div class="section" id="testing">
 <h1>Testing<a class="headerlink" href="#testing" title="Permalink to this headline">¶</a></h1>
 <p>For testing, we are using Django&#8217;s builtin unittest.TestCase and a custom-made Flask http server to mimic external services (like Sensu and Umpire). To run tests, you must start up the flask server before running the test command:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">python</span> <span class="n">manage</span><span class="o">.</span><span class="n">py</span> <span class="n">start_testing_faux_server</span>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">$ </span><span class="n">python</span> <span class="n">manage</span><span class="o">.</span><span class="n">py</span> <span class="n">start_testing_faux_server</span>
 </pre></div>
 </div>
 <p>And then, in a separate tab...</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">python</span> <span class="n">manage</span> <span class="n">test</span> <span class="n">main</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">python</span> <span class="n">manage</span> <span class="n">test</span> <span class="n">mobile</span>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">$ </span><span class="n">python</span> <span class="n">manage</span> <span class="n">test</span> <span class="n">main</span>
+<span class="gp">$ </span><span class="n">python</span> <span class="n">manage</span> <span class="n">test</span> <span class="n">mobile</span>
 </pre></div>
 </div>
 </div>

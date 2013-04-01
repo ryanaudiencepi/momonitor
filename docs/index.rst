@@ -218,13 +218,13 @@ For testing, we are using Django's builtin unittest.TestCase and a custom-made F
 
 ::
 
-    >>> python manage.py start_testing_faux_server
+    $ python manage.py start_testing_faux_server
 
 And then, in a separate tab...
 ::
 
-    >>> python manage test main
-    >>> python manage test mobile
+    $ python manage test main
+    $ python manage test mobile
 
 Feedback
 ========
