@@ -41,6 +41,44 @@ We also put together a quick `presentation <http://mopub.github.com/momonitor/sl
 
 Want to start creating checks right away? See the `demo video <http://youtu.be/YVNQo98Nrio>`_ about creating checks
 
+Screenshots
+-----------
+
+.. image:: img/momonitor-1.jpg
+   :height: 100px
+   :width: 125px
+   :target: img/momonitor-1.jpg
+
+.. image:: img/momonitor-2.jpg
+   :height: 100px
+   :width: 125px
+   :target: img/momonitor-2.jpg
+
+.. image:: img/momonitor-3.jpg
+   :height: 100px
+   :width: 125px
+   :target: img/momonitor-3.jpg
+
+.. image:: img/momonitor-4.jpg
+   :height: 100px
+   :width: 125px
+   :target: img/momonitor-4.jpg
+
+.. image:: img/momonitor-5.jpg
+   :height: 100px
+   :width: 125px
+   :target: img/momonitor-5.jpg
+
+.. image:: img/momonitor-7.jpg
+   :height: 100px
+   :width: 125px
+   :target: img/momonitor-7.jpg
+
+.. image:: img/momonitor-8.jpg
+   :height: 100px
+   :width: 125px
+   :target: img/momonitor-8.jpg
+
 Getting Started
 ===============
 
@@ -80,7 +118,7 @@ First clone the Repo:
 Next, you will need to setup your database and sync your Django Models. Make sure the database is already running.
 ::
 
-    psql -U postgres -c "CREATE ROLE <role-name> with password '<password>';"
+    psql -U postgres -c "CREATE ROLE <role-name> with password '<password>' WITH LOGIN;"
     psql -U postgres -c "CREATE DATABASE <database-name> with owner <role-name>;"
     python manage.py syncdb
     python manage.py migrate
@@ -223,8 +261,8 @@ For testing, we are using Django's builtin unittest.TestCase and a custom-made F
 And then, in a separate tab...
 ::
 
-    $ python manage test main
-    $ python manage test mobile
+    $ python manage.py test main
+    $ python manage.py test mobile
 
 Feedback
 ========
