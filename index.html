@@ -90,6 +90,16 @@
 <p>See the <a class="reference external" href="http://www.youtube.com/watch?v=uL5ddl5wpac">video tutorial</a> for a brief overview of the momonitor WebUI.</p>
 <p>We also put together a quick <a class="reference external" href="http://mopub.github.com/momonitor/slideshow">presentation</a> to highlight the goals of momonitor.</p>
 <p>Want to start creating checks right away? See the <a class="reference external" href="http://youtu.be/YVNQo98Nrio">demo video</a> about creating checks</p>
+<div class="section" id="screenshots">
+<h2>Screenshots<a class="headerlink" href="#screenshots" title="Permalink to this headline">¶</a></h2>
+<a class="reference external image-reference" href="img/momonitor-1.jpg"><img alt="img/momonitor-1.jpg" src="img/momonitor-1.jpg" style="width: 125px; height: 100px;" /></a>
+<a class="reference external image-reference" href="img/momonitor-2.jpg"><img alt="img/momonitor-2.jpg" src="img/momonitor-2.jpg" style="width: 125px; height: 100px;" /></a>
+<a class="reference external image-reference" href="img/momonitor-3.jpg"><img alt="img/momonitor-3.jpg" src="img/momonitor-3.jpg" style="width: 125px; height: 100px;" /></a>
+<a class="reference external image-reference" href="img/momonitor-4.jpg"><img alt="img/momonitor-4.jpg" src="img/momonitor-4.jpg" style="width: 125px; height: 100px;" /></a>
+<a class="reference external image-reference" href="img/momonitor-5.jpg"><img alt="img/momonitor-5.jpg" src="img/momonitor-5.jpg" style="width: 125px; height: 100px;" /></a>
+<a class="reference external image-reference" href="img/momonitor-7.jpg"><img alt="img/momonitor-7.jpg" src="img/momonitor-7.jpg" style="width: 125px; height: 100px;" /></a>
+<a class="reference external image-reference" href="img/momonitor-8.jpg"><img alt="img/momonitor-8.jpg" src="img/momonitor-8.jpg" style="width: 125px; height: 100px;" /></a>
+</div>
 </div>
 <div class="section" id="getting-started">
 <h1>Getting Started<a class="headerlink" href="#getting-started" title="Permalink to this headline">¶</a></h1>
@@ -137,7 +147,7 @@
 <div class="highlight-python"><pre>git clone git@github.com:mopub/momonitor.git</pre>
 </div>
 <p>Next, you will need to setup your database and sync your Django Models. Make sure the database is already running.</p>
-<div class="highlight-python"><pre>psql -U postgres -c "CREATE ROLE &lt;role-name&gt; with password '&lt;password&gt;';"
+<div class="highlight-python"><pre>psql -U postgres -c "CREATE ROLE &lt;role-name&gt; with password '&lt;password&gt;' WITH LOGIN;"
 psql -U postgres -c "CREATE DATABASE &lt;database-name&gt; with owner &lt;role-name&gt;;"
 python manage.py syncdb
 python manage.py migrate</pre>
@@ -315,8 +325,8 @@ python manage.py migrate</pre>
 <div class="highlight-python"><pre>$ python manage.py start_testing_faux_server</pre>
 </div>
 <p>And then, in a separate tab...</p>
-<div class="highlight-python"><pre>$ python manage test main
-$ python manage test mobile</pre>
+<div class="highlight-python"><pre>$ python manage.py test main
+$ python manage.py test mobile</pre>
 </div>
 </div>
 <div class="section" id="feedback">
@@ -337,7 +347,10 @@ $ python manage test mobile</pre>
 <li><a class="reference internal" href="#why-momonitor">Why MoMonitor?</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#how-it-works">How it works</a></li>
+<li><a class="reference internal" href="#how-it-works">How it works</a><ul>
+<li><a class="reference internal" href="#screenshots">Screenshots</a></li>
+</ul>
+</li>
 <li><a class="reference internal" href="#getting-started">Getting Started</a><ul>
 <li><a class="reference internal" href="#requirements">Requirements</a></li>
 <li><a class="reference internal" href="#setup-from-nothing">Setup from Nothing</a></li>
