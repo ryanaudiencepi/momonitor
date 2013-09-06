@@ -158,3 +158,22 @@ GOOGLE_WHITE_LISTED_DOMAINS = ['gmail.com']
 # This will be used to create links in emails sent from momonitor. 
 # Use 'http://localhost' for testing
 DOMAIN = "" 
+
+
+# Email Information
+EMAIL_BACKEND = ""
+EMAIL_HOST_USER = ""
+EMAIL_HOST_PASSWORD = ""
+EMAIL_HOST = ""
+EMAIL_PORT = ""
+EMAIL_USE_TLS = True
+
+
+# this is the "FROM" that will be seen from alert
+SERVER_EMAIL = ""
+
+
+# umpire authentication credentials
+UMPIRE_USER = ""
+UMPIRE_API = ""
+
