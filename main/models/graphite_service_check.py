@@ -64,3 +64,14 @@ class GraphiteServiceCheck(ServiceCheck):
 
 
         self.set_state(status=status,last_value=average_value)
+
+    def status_progress(self):
+        if self.graphite_upper_bound-self.graphite_lower_bound == 0:
+            return 0
+        return max(
+            min(
+                (self.last_value-self.graphite_lower_bound) / (self.graphite_upper_bound-self.graphite_lower_bound),
+                1
+                ),
+            0
+            )*100
