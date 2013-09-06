@@ -17,7 +17,7 @@ class GraphiteServiceCheck(ServiceCheck):
     class Meta:
         app_label="main"
 
-    graphite_range = models.IntegerField(default=300)
+    graphite_range = models.IntegerField()
     graphite_metric = models.CharField(max_length=256)
     graphite_lower_bound = models.FloatField()
     graphite_upper_bound = models.FloatField()
